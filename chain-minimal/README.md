@@ -22,6 +22,19 @@ make init # initialize the chain
 minid start # start the chain
 ```
 
+```sh
+minid tx checkers --help
+minid keys list --keyring-backend test
+```
+
+```sh
+minid tx checkers create id1 \
+    mini16ajnus3hhpcsfqem55m5awf3mfwfvhpp36rc7d \
+    mini1hv85y6h5rkqxgshcyzpn2zralmmcgnqwsjn3qg \
+    --from alice --yes
+```
+
+
 ## Useful links
 
 * [Cosmos-SDK Documentation](https://docs.cosmos.network/)
