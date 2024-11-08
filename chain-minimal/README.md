@@ -16,6 +16,7 @@ Install and run `minid`:
 ```sh
 git clone git@github.com:cosmosregistry/chain-minimal.git
 cd chain-minimal
+chmod +x ./scripts/init.sh # In case you need to make the script executable
 make install # install the minid binary
 make init # initialize the chain
 minid start # start the chain
