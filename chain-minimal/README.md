@@ -25,6 +25,7 @@ minid start # start the chain
 ```sh
 minid tx checkers --help
 minid keys list --keyring-backend test
+minid query checkers --help
 ```
 
 ```sh
@@ -34,6 +35,16 @@ minid tx checkers create id1 \
     --from alice --yes
 ```
 
+```shell
+minid query checkers get-game id1
+
+Game:
+  black: mini16ajnus3hhpcsfqem55m5awf3mfwfvhpp36rc7d
+  board: '*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*'
+  index: id1
+  red: mini1hv85y6h5rkqxgshcyzpn2zralmmcgnqwsjn3qg
+  turn: b
+```
 
 ## Useful links
 
