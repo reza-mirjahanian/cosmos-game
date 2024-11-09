@@ -22,16 +22,24 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 			},
 		},
 		Tx: &autocliv1.ServiceCommandDescriptor{
-			Service: checkersv1.Msg_ServiceDesc.ServiceName,
+			Service: checkersv1.CheckersTorram_ServiceDesc.ServiceName,
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{
-					RpcMethod: "CreateGame",
+					RpcMethod: "CheckersCreateGm",
 					Use:       "create index black red",
 					Short:     "Creates a new checkers game at the index for the black and red players",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
 						{ProtoField: "index"},
 						{ProtoField: "black"},
 						{ProtoField: "red"},
+					},
+				},
+				{
+					RpcMethod: "KillGame",
+					Use:       "kill-game stop and store finish time",
+					Short:     "Kills the game at the index",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "index"},
 					},
 				},
 			},

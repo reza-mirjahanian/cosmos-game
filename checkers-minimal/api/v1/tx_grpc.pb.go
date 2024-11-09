@@ -19,91 +19,128 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_CreateGame_FullMethodName = "/alice.checkers.v1.Msg/CreateGame"
+	CheckersTorram_CheckersCreateGm_FullMethodName = "/alice.checkers.v1.CheckersTorram/CheckersCreateGm"
+	CheckersTorram_KillGame_FullMethodName         = "/alice.checkers.v1.CheckersTorram/KillGame"
 )
 
-// MsgClient is the client API for Msg service.
+// CheckersTorramClient is the client API for CheckersTorram service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type MsgClient interface {
-	// CreateGame create a game.
-	CreateGame(ctx context.Context, in *MsgCreateGame, opts ...grpc.CallOption) (*MsgCreateGameResponse, error)
+type CheckersTorramClient interface {
+	//  2 - rpc should be named as CheckersCreateGm
+	CheckersCreateGm(ctx context.Context, in *ReqCheckersTorram, opts ...grpc.CallOption) (*ResCheckersTorram, error)
+	KillGame(ctx context.Context, in *ReqKillGame, opts ...grpc.CallOption) (*ResKillGame, error)
 }
 
-type msgClient struct {
+type checkersTorramClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewMsgClient(cc grpc.ClientConnInterface) MsgClient {
-	return &msgClient{cc}
+func NewCheckersTorramClient(cc grpc.ClientConnInterface) CheckersTorramClient {
+	return &checkersTorramClient{cc}
 }
 
-func (c *msgClient) CreateGame(ctx context.Context, in *MsgCreateGame, opts ...grpc.CallOption) (*MsgCreateGameResponse, error) {
-	out := new(MsgCreateGameResponse)
-	err := c.cc.Invoke(ctx, Msg_CreateGame_FullMethodName, in, out, opts...)
+func (c *checkersTorramClient) CheckersCreateGm(ctx context.Context, in *ReqCheckersTorram, opts ...grpc.CallOption) (*ResCheckersTorram, error) {
+	out := new(ResCheckersTorram)
+	err := c.cc.Invoke(ctx, CheckersTorram_CheckersCreateGm_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// MsgServer is the server API for Msg service.
-// All implementations must embed UnimplementedMsgServer
+func (c *checkersTorramClient) KillGame(ctx context.Context, in *ReqKillGame, opts ...grpc.CallOption) (*ResKillGame, error) {
+	out := new(ResKillGame)
+	err := c.cc.Invoke(ctx, CheckersTorram_KillGame_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CheckersTorramServer is the server API for CheckersTorram service.
+// All implementations must embed UnimplementedCheckersTorramServer
 // for forward compatibility
-type MsgServer interface {
-	// CreateGame create a game.
-	CreateGame(context.Context, *MsgCreateGame) (*MsgCreateGameResponse, error)
-	mustEmbedUnimplementedMsgServer()
+type CheckersTorramServer interface {
+	//  2 - rpc should be named as CheckersCreateGm
+	CheckersCreateGm(context.Context, *ReqCheckersTorram) (*ResCheckersTorram, error)
+	KillGame(context.Context, *ReqKillGame) (*ResKillGame, error)
+	mustEmbedUnimplementedCheckersTorramServer()
 }
 
-// UnimplementedMsgServer must be embedded to have forward compatible implementations.
-type UnimplementedMsgServer struct {
+// UnimplementedCheckersTorramServer must be embedded to have forward compatible implementations.
+type UnimplementedCheckersTorramServer struct {
 }
 
-func (UnimplementedMsgServer) CreateGame(context.Context, *MsgCreateGame) (*MsgCreateGameResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateGame not implemented")
+func (UnimplementedCheckersTorramServer) CheckersCreateGm(context.Context, *ReqCheckersTorram) (*ResCheckersTorram, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckersCreateGm not implemented")
 }
-func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
+func (UnimplementedCheckersTorramServer) KillGame(context.Context, *ReqKillGame) (*ResKillGame, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method KillGame not implemented")
+}
+func (UnimplementedCheckersTorramServer) mustEmbedUnimplementedCheckersTorramServer() {}
 
-// UnsafeMsgServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to MsgServer will
+// UnsafeCheckersTorramServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CheckersTorramServer will
 // result in compilation errors.
-type UnsafeMsgServer interface {
-	mustEmbedUnimplementedMsgServer()
+type UnsafeCheckersTorramServer interface {
+	mustEmbedUnimplementedCheckersTorramServer()
 }
 
-func RegisterMsgServer(s grpc.ServiceRegistrar, srv MsgServer) {
-	s.RegisterService(&Msg_ServiceDesc, srv)
+func RegisterCheckersTorramServer(s grpc.ServiceRegistrar, srv CheckersTorramServer) {
+	s.RegisterService(&CheckersTorram_ServiceDesc, srv)
 }
 
-func _Msg_CreateGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgCreateGame)
+func _CheckersTorram_CheckersCreateGm_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqCheckersTorram)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).CreateGame(ctx, in)
+		return srv.(CheckersTorramServer).CheckersCreateGm(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Msg_CreateGame_FullMethodName,
+		FullMethod: CheckersTorram_CheckersCreateGm_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).CreateGame(ctx, req.(*MsgCreateGame))
+		return srv.(CheckersTorramServer).CheckersCreateGm(ctx, req.(*ReqCheckersTorram))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
+func _CheckersTorram_KillGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqKillGame)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CheckersTorramServer).KillGame(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CheckersTorram_KillGame_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CheckersTorramServer).KillGame(ctx, req.(*ReqKillGame))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// CheckersTorram_ServiceDesc is the grpc.ServiceDesc for CheckersTorram service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Msg_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "alice.checkers.v1.Msg",
-	HandlerType: (*MsgServer)(nil),
+var CheckersTorram_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "alice.checkers.v1.CheckersTorram",
+	HandlerType: (*CheckersTorramServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateGame",
-			Handler:    _Msg_CreateGame_Handler,
+			MethodName: "CheckersCreateGm",
+			Handler:    _CheckersTorram_CheckersCreateGm_Handler,
+		},
+		{
+			MethodName: "KillGame",
+			Handler:    _CheckersTorram_KillGame_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

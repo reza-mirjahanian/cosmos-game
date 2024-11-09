@@ -4,29 +4,40 @@ package alice.checkers.v1;
 option go_package = "github.com/alice/checkers";
 
 import "cosmos/msg/v1/msg.proto";
-import "gogoproto/gogo.proto";
-import "alice/checkers/v1/types.proto";
 import "cosmos_proto/cosmos.proto";
 
-// Msg defines the module Msg service.
-service Msg {
+// 1 - msg service should be named as CheckersTorram
+service CheckersTorram {
   option (cosmos.msg.v1.service) = true;
 
-  // CreateGame create a game.
-  rpc CreateGame(MsgCreateGame)
-      returns (MsgCreateGameResponse);
+  //  2 - rpc should be named as CheckersCreateGm
+  rpc CheckersCreateGm(ReqCheckersTorram) returns (ResCheckersTorram);
+  rpc KillGame(ReqKillGame) returns (ResKillGame);
 }
 
-// MsgCreateGame defines the Msg/CreateGame request type.
-message MsgCreateGame {
+// 2 - msg request type should be named as ReqCheckersTorram
+message ReqCheckersTorram {
   option (cosmos.msg.v1.signer) = "creator";
 
   // creator is the message sender.
   string creator = 1;
-  string index = 2 ;
+  string index = 2;
   string black = 3 [(cosmos_proto.scalar) = "cosmos.AddressString"];
   string red = 4 [(cosmos_proto.scalar) = "cosmos.AddressString"];
 }
 
-// MsgCreateGameResponse defines the Msg/CreateGame response type.
-message MsgCreateGameResponse {}
+// 3 - msg response type should be named as ResCheckersTorram
+message ResCheckersTorram {}
+
+// 4 - In the keeper file, try to store more game data like game start time and end time.
+message ResKillGame {}
+
+message ReqKillGame {
+  option (cosmos.msg.v1.signer) = "terminator";
+
+  string terminator = 1;
+  string index = 2;
+}
+
+
+
